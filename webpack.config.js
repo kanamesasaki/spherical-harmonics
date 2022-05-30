@@ -11,6 +11,7 @@ module.exports = {
     },
     resolve: {
         // extensions that are recognized as modules
+        // modules: ['./node_modules/three/examples/jsm/geometries/ParametricGeometry'],
         extensions:['.ts','.js']
     },
     devServer: {

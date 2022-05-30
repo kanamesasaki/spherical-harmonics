@@ -1,0 +1,66 @@
+body {
+    font-family: sans-serif;
+    font-size: 14px;
+    text-align: left;
+    background-color: #010101;
+    color: black;
+    border: none;
+}
+
+/* -- body styles ----------------------------------------------------------- */
+
+p {
+    margin: 0.8em 20px 0.5em 20px;
+}
+
+mjx-container {
+    text-align: left !important;
+    text-indent: 30px !important;
+}  
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #2491CF;
+}
+
+h1 {
+    position: absolute; 
+    top: 20px;
+    left: 30px;
+    font-size: 20pt;
+    color: #FFFFFF;
+}
+
+header {
+    padding: 0px 0px 0px 0px;
+}
+
+footer {
+    background-color: #010101;
+    color: #FFFFFF;
+    width: max-content;
+    position: absolute; 
+    bottom: 10px;
+    left: 30px;
+    line-height: 150%
+}
+
+canvas {
+    border: 0px solid red;
+}
+
+#WebGL-output {
+    position: absolute; 
+    top: 0px; 
+}
+
+#gui-container {
+    position: absolute; 
+    top: 0px;
+    right: 0px;
+    color: #FFFFFF;
+}
