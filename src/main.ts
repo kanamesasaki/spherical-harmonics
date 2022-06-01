@@ -1,7 +1,8 @@
 import * as THREE from "three"
 import * as dat from "dat.gui"
-import {ParametricGeometry} from "three/examples/jsm/geometries/ParametricGeometry"
-import {OrbitControls} from "three/examples/jsm/controls/OrbitControls"
+import { sphericalHarmonics } from "./spherical_harmonics"
+import { ParametricGeometry } from "three/examples/jsm/geometries/ParametricGeometry"
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 
 // fix Z-axis up
 THREE.Object3D.DefaultUp.set(0.0, 0.0, 1.0)
@@ -50,15 +51,14 @@ function init() {
 	let sphericalPositive = function(u:number, v:number, target:THREE.Vector3): void {
 		let theta = Math.PI * u
 		let phi = 2*Math.PI * v
-		let r1 = Math.sqrt(3/(4*Math.PI)) * Math.cos(theta)
 		let mag = quantumNumber.magnetic
-		if (quantumNumber.sign === 'negative') {
+		if (quantumNumber.sign === "negative") {
 			mag *= -1
 		}
-		r1 = sphericalHarmonics(quantumNumber.azimuthal ,mag ,theta, phi)
+		let r1 = sphericalHarmonics(quantumNumber.azimuthal, mag, theta, phi)
 		let r2 = 0
 		if (r1 > 0) {
-			r2 = r1*r1	
+			r2 = r1*r1
 		}
 		let x = r2 * Math.sin(theta) * Math.cos(phi)
 		let y = r2 * Math.sin(theta) * Math.sin(phi)
@@ -70,15 +70,14 @@ function init() {
 	let sphericalNegative = function(u:number, v:number, target:THREE.Vector3): void {
 		let theta = Math.PI * u
 		let phi = 2*Math.PI * v
-		let r1 = Math.sqrt(3/(4*Math.PI)) * Math.cos(theta)
 		let mag = quantumNumber.magnetic
-		if (quantumNumber.sign === 'negative') {
+		if (quantumNumber.sign === "negative") {
 			mag *= -1
 		}
-		r1 = sphericalHarmonics(quantumNumber.azimuthal ,mag ,theta, phi)
+		let r1 = sphericalHarmonics(quantumNumber.azimuthal, mag, theta, phi)
 		let r2 = 0
 		if (r1 < 0) {
-			r2 = r1*r1	
+			r2 = r1*r1
 		}
 		let x = r2 * Math.sin(theta) * Math.cos(phi)
 		let y = r2 * Math.sin(theta) * Math.sin(phi)
@@ -167,69 +166,6 @@ function animate() {
 	// render using requestAnimationFrame
 	requestAnimationFrame(animate)
 	renderer.render(scene, camera)
-}
-
-function associatedLegendre(l:number ,m:number ,t:number): number {
-	// check parameters
-	if (!Number.isInteger(l) || l < 0) {
-		throw Error("l shall be a positive integer")
-	}
-	if (!Number.isInteger(m)) {
-		throw Error("m shall be an integer")
-	}
-	if (Math.abs(m) > l) {
-		throw Error ("|m| shall be equal or smaller than l")
-	}
-
-	let val = 0.0
-	let n: number = Math.floor((l-m)/2)
-	if (l === 0) {
-		val = 1.0
-	}
-	else {
-		for (let j=0; j<=n; j++) {
-			val += (-1)**j * factorial(2*l-2*j) / (factorial(j) * factorial(l-j) * factorial(l-2*j-m)) * t**(l-2*j-m)
-		}
-		val *= 1/(2**l) * (1-t*t)**(m/2)
-	}
-	return val
-}
-
-function sphericalHarmonics(l:number ,m:number ,theta:number, phi:number) :number {
-	// check parameters
-	if (!Number.isInteger(l) || l < 0) {
-		throw Error("l shall be a positive integer")
-	}
-	if (!Number.isInteger(m)) {
-		throw Error("m shall be an integer")
-	}
-	if (Math.abs(m) > l && m > 0) {
-		m = l
-	}
-	if (Math.abs(m) > l && m < 0) {
-		m = -l
-	}
-	let coeff:number = (-1)**((m+Math.abs(m))/2) * Math.sqrt((2*l+1)/(4*Math.PI)*factorial(l-Math.abs(m))/factorial(l+Math.abs(m)))
-	let elevation:number = associatedLegendre(l ,Math.abs(m) ,Math.cos(theta))
-	let azimuth:number
-	if (m === 0) {
-		azimuth = 1.0
-	}
-	else if(m > 0) {
-		azimuth = Math.cos(m*phi)
-	}
-	else {
-		azimuth = Math.sin(m*phi)
-	}
-	return coeff*elevation*azimuth
-}
-
-function factorial(num:number) : number {
-	if (!Number.isInteger(num) || num < 0) {
-		throw Error("num shall be a positive integer")
-	}
-	if (num === 0) {return 1}
-	return num * factorial(num-1)
 }
 
 window.onload = init
