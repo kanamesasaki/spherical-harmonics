@@ -9,7 +9,8 @@ THREE.Object3D.DefaultUp.set(0.0, 0.0, 1.0)
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
 const renderer = new THREE.WebGL1Renderer()
-const gui = new dat.GUI({autoPlace: false})
+const gui = new dat.GUI({autoPlace: false, width: 300})
+gui.domElement.id = 'gui'
 const guiFolder = gui.addFolder("Spherical Harmonics")
 let orbitControls: OrbitControls
 let quantumNumber = {
@@ -20,7 +21,7 @@ let quantumNumber = {
 
 function init() {
 	// init renderer
-	renderer.setClearColor(new THREE.Color(0x111111))
+	renderer.setClearColor(new THREE.Color(0x010101))
 	renderer.setSize(window.innerWidth*0.99, window.innerHeight*0.99)
 
 	// X axis: red, Y axis: green, Z axis: blue
@@ -158,7 +159,6 @@ function init() {
 
 function resize() {
 	renderer.setSize(window.innerWidth*0.99, window.innerHeight*0.99)
-	animate()
 }
 
 function animate() {
