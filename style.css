@@ -49,10 +49,6 @@ footer {
     line-height: 150%
 }
 
-canvas {
-    border: 0px solid red;
-}
-
 #WebGL-output {
     position: absolute; 
     top: 0px; 
@@ -62,5 +58,42 @@ canvas {
     position: absolute; 
     top: 0px;
     right: 0px;
-    color: #FFFFFF;
+}
+
+#gui li.title{
+    font-size: 16pt;
+}
+
+#gui li:not(.folder) {
+    font-size: 16pt;
+    height: 40px;
+    line-height: 40px;
+}
+
+#gui ul.closed .close-button{
+    margin-top: 200px;
+    color: red
+}
+
+#gui .close-button {
+    font-size: 16pt;
+    margin-top: 2%;
+}
+
+#gui .c .slider {
+    height: 31px;
+}
+
+#gui .c input[type=text] {
+    font-size: 16pt;
+}
+
+#gui .c select {
+    font-size: 16pt;
+}
+
+#gui .closed li:not(.title) {
+  height: 0;
+  overflow: hidden;
+  border: 0;
 }
