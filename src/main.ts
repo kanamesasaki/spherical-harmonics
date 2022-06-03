@@ -49,7 +49,7 @@ function init() {
 	
 	// create parametric geometry
 	let sphericalPositive = function(u:number, v:number, target:THREE.Vector3): void {
-		let theta = Math.PI * u
+		let theta = Math.PI * u + 2*Math.PI
 		let phi = 2*Math.PI * v
 		let mag = quantumNumber.magnetic
 		if (quantumNumber.sign === "negative") {
@@ -68,7 +68,7 @@ function init() {
 	}
 
 	let sphericalNegative = function(u:number, v:number, target:THREE.Vector3): void {
-		let theta = Math.PI * u
+		let theta = Math.PI * u + 2*Math.PI
 		let phi = 2*Math.PI * v
 		let mag = quantumNumber.magnetic
 		if (quantumNumber.sign === "negative") {
@@ -86,12 +86,15 @@ function init() {
 		target.set(x, y, z)
 	}
 
-	let geometryPositive = new ParametricGeometry(sphericalPositive, 120, 120)
+	let slice = 40+quantumNumber.azimuthal*15
+	let stack = 40+quantumNumber.magnetic*15
+
+	let geometryPositive = new ParametricGeometry(sphericalPositive, slice, stack)
 	let materialPositive = new THREE.MeshLambertMaterial({color: 0xff0000})
 	let meshPositive = new THREE.Mesh(geometryPositive, materialPositive)
 	scene.add(meshPositive)
 
-	let geometryNegative = new ParametricGeometry(sphericalNegative, 120, 120)
+	let geometryNegative = new ParametricGeometry(sphericalNegative, slice, stack)
 	let materialNegative = new THREE.MeshLambertMaterial({color: 0x00ff00})
 	let meshNegative = new THREE.Mesh(geometryNegative, materialNegative)
 	scene.add(meshNegative)
@@ -109,28 +112,26 @@ function init() {
 	}
 	guiFolder.add(quantumNumber, "azimuthal", 0, 10, 1).onFinishChange(
 		function(){
+			slice = 40+quantumNumber.azimuthal*15
 			scene.remove(meshPositive)
-			geometryPositive = new ParametricGeometry(sphericalPositive, 120, 120)
-			materialPositive = new THREE.MeshLambertMaterial({color: 0xff0000})
+			geometryPositive = new ParametricGeometry(sphericalPositive, slice, stack)
 			meshPositive = new THREE.Mesh(geometryPositive, materialPositive)
 			scene.add(meshPositive)
 			scene.remove(meshNegative)
-			geometryNegative = new ParametricGeometry(sphericalNegative, 120, 120)
-			materialNegative = new THREE.MeshLambertMaterial({color: 0x00ff00})
+			geometryNegative = new ParametricGeometry(sphericalNegative, slice, stack)
 			meshNegative = new THREE.Mesh(geometryNegative, materialNegative)
 			scene.add(meshNegative)
 		}
 	)
 	guiFolder.add(quantumNumber, "magnetic", 0, 10, 1).onFinishChange(
 		function(){
+			stack = 40+quantumNumber.magnetic*15
 			scene.remove(meshPositive)
-			geometryPositive = new ParametricGeometry(sphericalPositive, 120, 120)
-			materialPositive = new THREE.MeshLambertMaterial({color: 0xff0000})
+			geometryPositive = new ParametricGeometry(sphericalPositive, slice, stack)
 			meshPositive = new THREE.Mesh(geometryPositive, materialPositive)
 			scene.add(meshPositive)
 			scene.remove(meshNegative)
-			geometryNegative = new ParametricGeometry(sphericalNegative, 120, 120)
-			materialNegative = new THREE.MeshLambertMaterial({color: 0x00ff00})
+			geometryNegative = new ParametricGeometry(sphericalNegative, slice, stack)
 			meshNegative = new THREE.Mesh(geometryNegative, materialNegative)
 			scene.add(meshNegative)
 		}
@@ -138,13 +139,11 @@ function init() {
 	guiFolder.add(quantumNumber, "sign", ['positive', 'negative']).onFinishChange(
 		function(){
 			scene.remove(meshPositive)
-			geometryPositive = new ParametricGeometry(sphericalPositive, 120, 120)
-			materialPositive = new THREE.MeshLambertMaterial({color: 0xff0000})
+			geometryPositive = new ParametricGeometry(sphericalPositive, slice, stack)
 			meshPositive = new THREE.Mesh(geometryPositive, materialPositive)
 			scene.add(meshPositive)
 			scene.remove(meshNegative)
-			geometryNegative = new ParametricGeometry(sphericalNegative, 120, 120)
-			materialNegative = new THREE.MeshLambertMaterial({color: 0x00ff00})
+			geometryNegative = new ParametricGeometry(sphericalNegative, slice, stack)
 			meshNegative = new THREE.Mesh(geometryNegative, materialNegative)
 			scene.add(meshNegative)
 		}
