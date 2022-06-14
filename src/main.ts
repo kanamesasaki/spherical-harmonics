@@ -15,9 +15,9 @@ gui.domElement.id = 'gui'
 const guiFolder = gui.addFolder("Spherical Harmonics")
 let orbitControls: OrbitControls
 let quantumNumber = {
-	azimuthal: 1,
-	magnetic: 0,
-	sign: 'positive'
+	Azimuthal: 1,
+	Magnetic: 0,
+	Sign: 'Positive'
 }
 
 function init() {
@@ -51,11 +51,11 @@ function init() {
 	let sphericalPositive = function(u:number, v:number, target:THREE.Vector3): void {
 		let theta = Math.PI * u + 2*Math.PI
 		let phi = 2*Math.PI * v
-		let mag = quantumNumber.magnetic
-		if (quantumNumber.sign === "negative") {
+		let mag = quantumNumber.Magnetic
+		if (quantumNumber.Sign === "Negative") {
 			mag *= -1
 		}
-		let r1 = sphericalHarmonics(quantumNumber.azimuthal, mag, theta, phi)
+		let r1 = sphericalHarmonics(quantumNumber.Azimuthal, mag, theta, phi)
 		let r2 = 0
 		if (r1 > 0) {
 			r2 = r1*r1
@@ -70,11 +70,11 @@ function init() {
 	let sphericalNegative = function(u:number, v:number, target:THREE.Vector3): void {
 		let theta = Math.PI * u + 2*Math.PI
 		let phi = 2*Math.PI * v
-		let mag = quantumNumber.magnetic
-		if (quantumNumber.sign === "negative") {
+		let mag = quantumNumber.Magnetic
+		if (quantumNumber.Sign === "Negative") {
 			mag *= -1
 		}
-		let r1 = sphericalHarmonics(quantumNumber.azimuthal, mag, theta, phi)
+		let r1 = sphericalHarmonics(quantumNumber.Azimuthal, mag, theta, phi)
 		let r2 = 0
 		if (r1 < 0) {
 			r2 = r1*r1
@@ -86,8 +86,8 @@ function init() {
 		target.set(x, y, z)
 	}
 
-	let slice = 40+quantumNumber.azimuthal*15
-	let stack = 40+quantumNumber.magnetic*15
+	let slice = 40+quantumNumber.Azimuthal*15
+	let stack = 40+quantumNumber.Magnetic*15
 
 	let geometryPositive = new ParametricGeometry(sphericalPositive, slice, stack)
 	let materialPositive = new THREE.MeshLambertMaterial({color: 0xff0000})
@@ -110,9 +110,9 @@ function init() {
 	if (customContainer !== null) {
 		customContainer.appendChild(gui.domElement)
 	}
-	guiFolder.add(quantumNumber, "azimuthal", 0, 10, 1).onFinishChange(
+	guiFolder.add(quantumNumber, "Azimuthal", 0, 10, 1).onFinishChange(
 		function(){
-			slice = 40+quantumNumber.azimuthal*15
+			slice = 40+quantumNumber.Azimuthal*15
 			scene.remove(meshPositive)
 			geometryPositive = new ParametricGeometry(sphericalPositive, slice, stack)
 			meshPositive = new THREE.Mesh(geometryPositive, materialPositive)
@@ -123,9 +123,9 @@ function init() {
 			scene.add(meshNegative)
 		}
 	)
-	guiFolder.add(quantumNumber, "magnetic", 0, 10, 1).onFinishChange(
+	guiFolder.add(quantumNumber, "Magnetic", 0, 10, 1).onFinishChange(
 		function(){
-			stack = 40+quantumNumber.magnetic*15
+			stack = 40+quantumNumber.Magnetic*15
 			scene.remove(meshPositive)
 			geometryPositive = new ParametricGeometry(sphericalPositive, slice, stack)
 			meshPositive = new THREE.Mesh(geometryPositive, materialPositive)
@@ -136,7 +136,7 @@ function init() {
 			scene.add(meshNegative)
 		}
 	)
-	guiFolder.add(quantumNumber, "sign", ['positive', 'negative']).onFinishChange(
+	guiFolder.add(quantumNumber, "Sign", ['Positive', 'Negative']).onFinishChange(
 		function(){
 			scene.remove(meshPositive)
 			geometryPositive = new ParametricGeometry(sphericalPositive, slice, stack)

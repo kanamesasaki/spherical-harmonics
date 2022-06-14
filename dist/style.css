@@ -1,6 +1,6 @@
 body {
     font-family: sans-serif;
-    font-size: 14px;
+    font-size: 18px;
     text-align: left;
     background-color: #010101;
     color: black;
@@ -29,9 +29,10 @@ a:hover {
 
 h1 {
     position: absolute; 
-    top: 20px;
+    top: 0px;
     left: 30px;
-    font-size: 22pt;
+    font-size: 24pt;
+    line-height: 48px;
     color: #FFFFFF;
 }
 
@@ -56,8 +57,8 @@ footer {
 
 #gui-container {
     position: absolute; 
-    top: 0px;
-    right: 0px;
+    top: 5px;
+    right:80px;
 }
 
 #gui li.title{
@@ -66,30 +67,33 @@ footer {
 
 #gui li:not(.folder) {
     font-size: 16pt;
-    height: 40px;
-    line-height: 40px;
+    height: 46px;
+    line-height: 46px;
+    width: 120%;
 }
 
 #gui ul.closed .close-button{
     margin-top: 200px;
-    color: red
 }
 
 #gui .close-button {
     font-size: 16pt;
-    margin-top: 2%;
+    margin-top: 4%;
+    margin-left: 12%;
 }
 
 #gui .c .slider {
-    height: 31px;
+    height: 34px;
 }
 
 #gui .c input[type=text] {
     font-size: 16pt;
+    height: 28px;
 }
 
 #gui .c select {
     font-size: 16pt;
+    height: 28px;
 }
 
 #gui .closed li:not(.title) {
